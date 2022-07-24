@@ -14,7 +14,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
-    getLocation();
+    getLocationData();
   }
 
   @override
@@ -23,18 +23,20 @@ class _LoadingScreenState extends State<LoadingScreen> {
     print('DEACTIVATED');
   }
 
-  void getLocation() async {
+  void getLocationData() async {
     Location location = Location();
     await location.getCurrentLocation();
 
     NetworkHelper networkHelper = NetworkHelper();
-    var gotData =
+    var decodedData =
         await networkHelper.getData(location.latitude, location.longitude);
-    // double temperature = decodedData(data)['main']['temp'];
-    // int conditionNo = decodedData(data)['weather'][0]['id'];
+
+    String city = decodedData['name'];
+    double temperature = decodedData['main']['temp'];
+    int conditionNo = decodedData['weather'][0]['id'];
 
     print('YIPEEEE');
-    print(gotData);
+    print(decodedData);
   }
 
   @override
