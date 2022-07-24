@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+
+import '../services/location.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key? key}) : super(key: key);
@@ -8,30 +9,11 @@ class LoadingScreen extends StatefulWidget {
   _LoadingScreenState createState() => _LoadingScreenState();
 }
 
-String loadedLocation = '';
-
-Future<Position> getLocation() async {
-  LocationPermission permission;
-  Position position;
-
-  permission = await Geolocator.checkPermission();
-
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error('Location Not Available');
-    }
-  } else {
-    throw Exception('Error');
-  }
-
-  try {
-    position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.low);
-    return position;
-  } catch (e) {
-    print(e);
-  }
+void getLocation() async {
+  Location location = Location();
+  await location.getCurrentLocation();
+  print(location.latitude);
+  print(location.longitude);
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
@@ -49,6 +31,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Text('Get Location');
+    return Scaffold();
   }
 }
