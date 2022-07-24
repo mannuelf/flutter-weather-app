@@ -8,10 +8,14 @@ class LoadingScreen extends StatefulWidget {
   _LoadingScreenState createState() => _LoadingScreenState();
 }
 
-void getLocation() async {
+String loadedLocation = '';
+
+Future<Position> getLocation() async {
   LocationPermission permission;
   Position position;
+
   permission = await Geolocator.checkPermission();
+
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.deniedForever) {
@@ -20,23 +24,31 @@ void getLocation() async {
   } else {
     throw Exception('Error');
   }
-  position = await Geolocator.getCurrentPosition();
-  print(position);
+
+  try {
+    position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.low);
+    return position;
+  } catch (e) {
+    print(e);
+  }
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
   @override
+  void initState() {
+    super.initState();
+    getLocation();
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    print('DEACTIVATED');
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            //Get the current location
-            getLocation();
-          },
-          child: Text('Get Location'),
-        ),
-      ),
-    );
+    return Text('Get Location');
   }
 }
