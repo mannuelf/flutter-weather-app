@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' show Client, Response;
+import 'package:weatherapp/services/networking.dart';
 
 import '../services/location.dart';
 
@@ -11,8 +11,6 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  Client client = Client();
-
   @override
   void initState() {
     super.initState();
@@ -28,18 +26,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void getLocation() async {
     Location location = Location();
     await location.getCurrentLocation();
-    print(location.latitude);
-    print(location.longitude);
-    getWeatherData(location.latitude, location.longitude);
-  }
 
-  void getWeatherData(lat, lon) async {
-    final root = 'https://api.openweathermap.org';
+    NetworkHelper networkHelper = NetworkHelper();
+    var gotData =
+        await networkHelper.getData(location.latitude, location.longitude);
+    // double temperature = decodedData(data)['main']['temp'];
+    // int conditionNo = decodedData(data)['weather'][0]['id'];
 
-    final API_KEY = 'e14fe840c1768222dbc2a366f42b8909';
-    Response response = await client.get(Uri.parse(
-        '$root/data/2.5/weather?lat=35&lon=45&appid=e14fe840c1768222dbc2a366f42b8909'));
-    print(response);
+    print('YIPEEEE');
+    print(gotData);
   }
 
   @override
