@@ -35,6 +35,13 @@ class _LocationScreenState extends State<LocationScreen> {
   // uses the variable from loading_screen
   void updateUI(dynamic weatherData) {
     setState(() {
+      if (weatherData == null) {
+        temperature = 0;
+        city = '';
+        weatherIcon = 'Error';
+        weatherMessage = 'Unable to get weather';
+        return;
+      }
       // anything Ui related "state" must be updated
       var conditionNo = weatherData['weather'][0]['id'];
       weatherIcon = weather.getWeatherIcon(conditionNo);
@@ -69,7 +76,10 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      var weatherData = await weather.getLocationWeather();
+                      updateUI(weatherData);
+                    },
                     child: const Icon(
                       Icons.near_me,
                       size: 50.0,
