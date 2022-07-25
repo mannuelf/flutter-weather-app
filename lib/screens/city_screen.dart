@@ -12,6 +12,8 @@ class CityScreen extends StatefulWidget {
 }
 
 class _CityScreenState extends State<CityScreen> {
+  var city = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,12 +45,16 @@ class _CityScreenState extends State<CityScreen> {
                   decoration: kTextInputDecoration,
                   onChanged: ((value) {
                     // pass value to weather module
+                    city = value;
                     print(value);
                   }),
                 ),
               ),
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  // pass data back to previous screen/or any screen
+                  Navigator.pop(context, city);
+                },
                 child: const Text(
                   'Get Weather',
                   style: kButtonTextStyle,

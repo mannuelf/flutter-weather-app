@@ -1,19 +1,33 @@
 import '../services/location.dart';
 import 'package:weatherapp/services/networking.dart';
 
+const baseUrl = 'https://api.openweathermap.org';
+const routes = 'data/2.5/weather';
+const units = 'metric';
+const apiKey = 'e14fe840c1768222dbc2a366f42b8909';
+var url;
+
 class WeatherModel {
   Future<dynamic> getLocationWeather() async {
     Location location = Location();
     await location.getCurrentLocation();
 
-    const baseUrl = 'https://api.openweathermap.org';
-    const routes = 'data/2.5/weather';
     final query = 'lat=${location.latitude}&lon=${location.longitude}';
-    const units = 'metric';
-    const apiKey = 'e14fe840c1768222dbc2a366f42b8909';
 
-    final url = '$baseUrl/$routes?$query&units=$units&appid=$apiKey';
+    url = '$baseUrl/$routes?$query&units=$units&appid=$apiKey';
 
+    NetworkHelper networkHelper = NetworkHelper(url);
+    var decodedData = await networkHelper.getData();
+    final weatherData = decodedData;
+
+    return weatherData;
+  }
+
+  Future<dynamic> getCityWeather(String city) async {
+    print('getting city weather');
+    final query = 'q=$city';
+    url = '$baseUrl/$routes?$query&units=$units&appid=$apiKey';
+    print(url);
     NetworkHelper networkHelper = NetworkHelper(url);
     var decodedData = await networkHelper.getData();
     final weatherData = decodedData;
