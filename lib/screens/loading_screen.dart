@@ -6,7 +6,7 @@ import 'package:weatherapp/services/networking.dart';
 import '../services/location.dart';
 
 class LoadingScreen extends StatefulWidget {
-  const LoadingScreen({Key? key}) : super(key: key);
+  LoadingScreen({Key? key}) : super(key: key);
 
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
@@ -16,6 +16,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
+    // run the get location as soon as screen loads
     getLocationData();
   }
 
@@ -32,26 +33,26 @@ class _LoadingScreenState extends State<LoadingScreen> {
     const baseUrl = 'https://api.openweathermap.org';
     const routes = 'data/2.5/weather';
     final query = 'lat=${location.latitude}&lon=${location.longitude}';
+    const units = 'metric';
     const apiKey = 'e14fe840c1768222dbc2a366f42b8909';
 
-    final url = '$baseUrl/$routes?$query&appid=$apiKey';
+    final url = '$baseUrl/$routes?$query&units=$units&appid=$apiKey';
 
     NetworkHelper networkHelper = NetworkHelper(url);
     var decodedData = await networkHelper.getData();
-
-    String city = decodedData['name'];
-    double temperature = decodedData['main']['temp'];
-    int conditionNo = decodedData['weather'][0]['id'];
+    final weatherData = decodedData;
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return const LocationScreen();
+      return LocationScreen(
+        locationWeather: weatherData,
+      );
     }));
   }
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: const Center(
+      body: Center(
         child: SpinKitDoubleBounce(
           color: Colors.white,
           size: 124,

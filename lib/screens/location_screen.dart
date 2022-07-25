@@ -13,6 +13,28 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  int temperature = 0;
+  String city = '';
+  int conditionNo = 0;
+
+  @override
+  void initState() {
+    // widget is an abject that represents this class:
+    // All props and methods attach to.
+    // widget.someThing will access someThing on the object widget.
+    super.initState();
+    // pass gotten data to widget finally.
+    updateUI(widget.locationWeather);
+  }
+
+  void updateUI(dynamic weatherData) {
+    // uses the variable from loading_screen
+    city = weatherData['name'];
+    conditionNo = weatherData['weather'][0]['id'];
+    double temp = weatherData['main']['temp'];
+    temperature = temp.toInt();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +77,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '32°',
+                      '$temperature°',
                       style: kTempTextStyle,
                     ),
                     Text(
