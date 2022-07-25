@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:weatherapp/screens/loading_screen.dart';
 
 import '../utilities/constants.dart';
 
@@ -13,14 +14,19 @@ class CityScreen extends StatefulWidget {
 
 class _CityScreenState extends State<CityScreen> {
   var city = '';
+  int bgNum = 1;
 
   @override
   Widget build(BuildContext context) {
+    randomImage() {
+      return;
+    }
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/city_background.jpg'),
+            image: AssetImage('images/city_bg_01.jpeg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -31,7 +37,9 @@ class _CityScreenState extends State<CityScreen> {
               Align(
                 alignment: Alignment.topLeft,
                 child: FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   child: const Icon(
                     Icons.arrow_back_ios,
                     size: 50.0,
@@ -44,9 +52,8 @@ class _CityScreenState extends State<CityScreen> {
                   style: TextStyle(color: Colors.black),
                   decoration: kTextInputDecoration,
                   onChanged: ((value) {
-                    // pass value to weather module
+                    // assign value and pass value to weather module
                     city = value;
-                    print(value);
                   }),
                 ),
               ),
@@ -56,7 +63,7 @@ class _CityScreenState extends State<CityScreen> {
                   Navigator.pop(context, city);
                 },
                 child: const Text(
-                  'Get Weather',
+                  '> Get Weather <',
                   style: kButtonTextStyle,
                 ),
               ),
