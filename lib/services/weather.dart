@@ -17,8 +17,7 @@ class WeatherModel {
     NetworkHelper networkHelper = NetworkHelper(url);
     var decodedData = await networkHelper.getData();
     final weatherData = decodedData;
-    print('weather.dart');
-    print(weatherData);
+
     return weatherData;
   }
 
