@@ -41,12 +41,18 @@ class _LoadingScreenState extends State<LoadingScreen> {
     NetworkHelper networkHelper = NetworkHelper(url);
     var decodedData = await networkHelper.getData();
     final weatherData = decodedData;
-
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return LocationScreen(
-        locationWeather: weatherData,
-      );
-    }));
+    print('<<<<<weatherData');
+    print(weatherData);
+    try {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return LocationScreen(
+          locationWeather: weatherData,
+        );
+      }));
+    } catch (e) {
+      print('>>>>LOADING_SCREEN');
+      print(weatherData);
+    }
   }
 
   @override
