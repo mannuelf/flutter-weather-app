@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:weatherapp/screens/location_screen.dart';
 import 'package:weatherapp/services/networking.dart';
 
 import '../services/location.dart';
@@ -28,10 +30,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
     await location.getCurrentLocation();
 
     const baseUrl = 'https://api.openweathermap.org';
+    const routes = 'data/2.5/weather';
+    final query = 'lat=${location.latitude}&lon=${location.longitude}';
     const apiKey = 'e14fe840c1768222dbc2a366f42b8909';
 
-    final url =
-        '$baseUrl/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey';
+    final url = '$baseUrl/$routes?$query&appid=$apiKey';
 
     NetworkHelper networkHelper = NetworkHelper(url);
     var decodedData = await networkHelper.getData();
@@ -40,12 +43,20 @@ class _LoadingScreenState extends State<LoadingScreen> {
     double temperature = decodedData['main']['temp'];
     int conditionNo = decodedData['weather'][0]['id'];
 
-    print('YIPEEEE');
-    print(decodedData);
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return const LocationScreen();
+    }));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold(
+      body: const Center(
+        child: SpinKitDoubleBounce(
+          color: Colors.white,
+          size: 124,
+        ),
+      ),
+    );
   }
 }

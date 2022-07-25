@@ -2,10 +2,10 @@ import 'package:http/http.dart' show Client, Response;
 import 'dart:convert';
 
 class NetworkHelper {
-  NetworkHelper(this.url);
-
-  Client client = Client();
   final url;
+
+  NetworkHelper(this.url);
+  Client client = Client();
 
   Future getData() async {
     Response response = await client.get(Uri.parse(url));
