@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 import '../utilities/constants.dart';
@@ -36,7 +38,14 @@ class _CityScreenState extends State<CityScreen> {
               ),
               Container(
                 padding: const EdgeInsets.all(20.0),
-                child: null,
+                child: TextField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: kTextInputDecoration,
+                  onChanged: ((value) {
+                    // pass value to weather module
+                    print(value);
+                  }),
+                ),
               ),
               FlatButton(
                 onPressed: () {},
