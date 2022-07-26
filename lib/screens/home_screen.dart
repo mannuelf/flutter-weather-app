@@ -4,18 +4,18 @@ import '../services/weather.dart';
 
 import '../utilities/constants.dart';
 
-class LocationScreen extends StatefulWidget {
-  const LocationScreen({Key? key, required this.locationWeather})
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key, required this.locationWeather})
       : super(key: key);
 
   // creates arguments for this class to pass data into it
   final locationWeather;
 
   @override
-  _LocationScreenState createState() => _LocationScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _LocationScreenState extends State<LocationScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   WeatherModel weather = WeatherModel();
   int conditionNo = 0;
   int temperature = 0;
@@ -49,7 +49,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
       city = weatherData['name'];
 
-      var temp = weatherData['main']['temp'];
+      double temp = weatherData['main']['temp'];
       temperature = temp.toInt();
       weatherMessage = weather.getMessage(temperature);
     });
@@ -92,7 +92,7 @@ class _LocationScreenState extends State<LocationScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return CityScreen();
+                            return const CityScreen();
                           },
                         ),
                       );

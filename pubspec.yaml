@@ -75,7 +75,12 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Spartan MB
+    - family: Ubuntu
       fonts:
-        - asset: fonts/SpartanMB-Black.otf
+        - asset: fonts/Ubuntu-Regular.ttf
+        - asset: fonts/Ubuntu-MediumItalic.ttf
+        - asset: fonts/Ubuntu-Medium.ttf
+        - asset: fonts/Ubuntu-Light.ttf
+        - asset: fonts/Ubuntu-BoldItalic.ttf
+        - asset: fonts/Ubuntu-Bold.ttf
           weight: 900

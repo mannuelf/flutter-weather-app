@@ -1,4 +1,4 @@
-import 'package:weatherapp/services/networking.dart';
+import '../services/networking.dart';
 
 import '../services/location.dart';
 
