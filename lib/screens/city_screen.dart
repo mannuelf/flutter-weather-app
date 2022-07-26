@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:weatherapp/screens/loading_screen.dart';
 
 import '../utilities/constants.dart';
 

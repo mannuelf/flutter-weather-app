@@ -21,13 +21,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void deactivate() {
     super.deactivate();
-    print('DEACTIVATED');
   }
 
   void getLocationData() async {
     WeatherModel weatherModel = WeatherModel();
     var weatherData = await weatherModel.getLocationWeather();
 
+    // ignore: use_build_context_synchronously
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return LocationScreen(
         locationWeather: weatherData,
