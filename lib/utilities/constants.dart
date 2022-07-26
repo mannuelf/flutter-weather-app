@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
-const kTempTextStyle = TextStyle(
+const kTempNumber = TextStyle(
   fontFamily: 'Ubuntu',
-  fontSize: 132.0,
-  fontWeight: FontWeight.bold,
+  fontSize: 192.0,
+  fontWeight: FontWeight.w300,
+);
+
+const kTempDegrees = TextStyle(
+  fontFamily: 'Ubuntu',
+  fontSize: 192.0,
+  fontWeight: FontWeight.w600,
 );
 
 const kMessageTextStyle = TextStyle(

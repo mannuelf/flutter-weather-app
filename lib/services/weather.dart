@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import '../services/networking.dart';
 
 import '../services/location.dart';
@@ -38,23 +41,25 @@ class WeatherModel {
     return weatherData;
   }
 
-  String getWeatherIcon(int condition) {
+  Widget getWeatherIcon(int condition) {
+    print('getWeatherIcon');
+    print(condition);
     if (condition < 300) {
-      return '🌩';
+      return Icon(Icons.graphic_eq, size: 90.0);
     } else if (condition < 400) {
-      return '🌧';
+      return Icon(Icons.shower, size: 90.0);
     } else if (condition < 600) {
-      return '☔️';
+      return Icon(Icons.shower, size: 90.0);
     } else if (condition < 700) {
-      return '☃️';
+      return Icon(Icons.snowing, size: 90.0);
     } else if (condition < 800) {
-      return '🌫';
+      return Icon(Icons.foggy, size: 90.0);
     } else if (condition == 800) {
-      return '☀️';
+      return Icon(Icons.sunny, size: 90.0);
     } else if (condition <= 804) {
-      return '☁️';
+      return Icon(Icons.cloud, size: 90.0);
     } else {
-      return '🤷‍';
+      return Icon(Icons.cancel, size: 90.0);
     }
   }
 

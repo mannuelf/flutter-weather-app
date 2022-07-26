@@ -1,5 +1,9 @@
 # weatherapp
 
+## OpenWeather API
+
+[Icons chart](https://openweathermap.org/weather-conditions)
+
 A new Flutter project.
 
 ## Getting Started

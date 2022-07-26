@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int conditionNo = 0;
   int temperature = 0;
   String city = '';
-  String weatherIcon = '';
+  Widget weatherIcon = Icon(Icons.shower, size: 90.0);
   String weatherMessage = '';
 
   @override
@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (weatherData == null) {
         temperature = 0;
         city = '';
-        weatherIcon = 'Error';
+        weatherIcon = Icon(Icons.close, size: 90.0);
         weatherMessage = 'Unable to get weather';
         return;
       }
@@ -68,11 +68,31 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         constraints: const BoxConstraints.expand(),
         child: SafeArea(
-          child: Expanded(
-            flex: 1,
-            child: Column(
-              children: [],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Row(
+                      children: [
+                        Text(
+                          '$temperature',
+                          style: kTempNumber,
+                        ),
+                        const Text(
+                          '°',
+                          style: kTempDegrees,
+                        ),
+                      ],
+                    ),
+                  ),
+                  weatherIcon,
+                ],
+              ),
+            ],
           ),
         ),
       ),
