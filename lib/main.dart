@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'screens/loading_screen.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  await dotenv.load(fileName: '.env');
+  return runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

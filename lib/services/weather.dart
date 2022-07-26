@@ -2,7 +2,9 @@ import '../services/networking.dart';
 
 import '../services/location.dart';
 
-const apiKey = 'e14fe840c1768222dbc2a366f42b8909';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+var apiKey = dotenv.env['OPEN_WEATHER_API_KEY'];
 const baseUrl = 'https://api.openweathermap.org';
 const routes = 'data/2.5/weather';
 const units = 'metric';
@@ -16,7 +18,8 @@ class WeatherModel {
     final query = 'lat=${location.latitude}&lon=${location.longitude}';
 
     url = '$baseUrl/$routes?$query&units=$units&appid=$apiKey';
-
+    print('>>>URL>>>');
+    print(url);
     NetworkHelper networkHelper = NetworkHelper(url);
     var decodedData = await networkHelper.getData();
     final weatherData = decodedData;
