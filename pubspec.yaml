@@ -1,5 +1,5 @@
 name: personalweather
-description: A new Flutter project.
+description: Personlised weather just for you based on location.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
