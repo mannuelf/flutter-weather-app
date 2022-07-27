@@ -8,7 +8,8 @@ import '../utilities/constants.dart';
 import 'city_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key, required this.locationWeather, this.resizedPhotoURL})
+  const HomeScreen(
+      {Key? key, required this.locationWeather, this.resizedPhotoURL})
       : super(key: key);
 
   // creates arguments for this class to pass data into it
@@ -135,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   weatherIcon,
                   const SizedBox(
-                    height: 32.0,
+                    height: 42.0,
                   ),
                   Text(
                     condition,
@@ -144,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               const SizedBox(
-                height: 60.0,
+                height: 42.0,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -156,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return CityScreen();
+                            return const CityScreen();
                           },
                         ),
                       );
