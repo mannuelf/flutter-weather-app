@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int conditionNo = 0;
   int temperature = 0;
   String city = '';
-  Widget weatherIcon = Icon(WeatherIcons.refresh, size: 132.0);
+  Widget weatherIcon = const Icon(WeatherIcons.refresh, size: 132.0);
   String weatherMessage = '';
   String condition = '';
 
@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (weatherData == null) {
         temperature = 0;
         city = '';
-        weatherIcon = Icon(WeatherIcons.refresh, size: 132.0);
+        weatherIcon = const Icon(WeatherIcons.refresh, size: 132.0);
         weatherMessage = 'Unable to get weather';
         condition = '';
         return;
@@ -71,42 +71,36 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         constraints: const BoxConstraints.expand(),
         child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '$temperature',
-                        style: kTempNumber,
-                      ),
-                      const Text(
-                        '°',
-                        style: kTempDegrees,
-                      ),
-                    ],
-                  ),
-                  Text(
-                    city,
-                    style: kCityLabelStyle,
-                  ),
-                  weatherIcon,
-                  const SizedBox(
-                    height: 60.0,
-                  ),
-                  Text(
-                    condition,
-                    style: kConditionLabelStyle,
-                  )
-                ],
-              ),
-            ],
+          child: Expanded(
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '$temperature',
+                      style: kTempNumber,
+                    ),
+                    const Text(
+                      '°',
+                      style: kTempDegrees,
+                    ),
+                  ],
+                ),
+                Text(
+                  city,
+                  style: kCityLabelStyle,
+                ),
+                weatherIcon,
+                const SizedBox(
+                  height: 60.0,
+                ),
+                Text(
+                  condition,
+                  style: kConditionLabelStyle,
+                )
+              ],
+            ),
           ),
         ),
       ),
