@@ -5,6 +5,7 @@ class NetworkHelper {
   final url;
 
   NetworkHelper(this.url);
+
   Client client = Client();
 
   Future getData() async {

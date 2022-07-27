@@ -28,8 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget weatherIcon = const Icon(WeatherIcons.refresh, size: 132.0);
   String weatherMessage = '';
   String condition = '';
-  var photosList;
-  late String customBackgroundPhoto = '';
   var customImg;
 
   @override
@@ -47,11 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       if (weatherData == null) {
         temperature = 0;
-        city = '';
+        city = 'No city';
         weatherIcon = const Icon(WeatherIcons.refresh, size: 132.0);
         weatherMessage = 'Unable to get weather';
         condition = '';
-        customBackgroundPhoto = 'images/city_bg_04.jpeg';
+        customImg = 'images/city_bg_04.jpeg';
         return;
       }
       // anything Ui related "state" must be updated
@@ -64,12 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
       temperature = temp.toInt();
       weatherMessage = weather.getMessage(temperature);
       condition = weather.getWeatherConditionLabel(conditionNo);
-      print('< resizedPhotoURL >');
-      print(resizedPhotoURL);
-      customBackgroundPhoto = resizedPhotoURL;
-      customImg = NetworkImage(
-          resizedPhotoURL,
-          scale: 1.0);
+      customImg = NetworkImage(resizedPhotoURL, scale: 0.8);
     });
   }
 
@@ -171,7 +164,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         // get weather with the string
                         var weatherData =
                             await weather.getCityWeather(typedName);
-                        var photoURL = await photos.getPhotos([], city);
+                        var photoURL =
+                            await photos.getPhotos([], weatherData['name']);
                         updateUI(weatherData, photoURL);
                       }
                     },
@@ -184,7 +178,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: uiButtonStyle,
                     onPressed: () async {
                       var weatherData = await weather.getLocationWeather();
-                      var photoURL = await photos.getPhotos([], city);
+                      var photoURL =
+                          await photos.getPhotos([], weatherData['name']);
                       updateUI(weatherData, photoURL);
                     },
                     child: const Icon(Icons.refresh_rounded, size: 36),

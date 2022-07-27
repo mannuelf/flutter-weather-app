@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:personalweather/services/photos.dart';
+import '../services/photos.dart';
 import '../utilities/constants.dart';
 import '../services/weather.dart';
 import 'home_screen.dart';
@@ -27,19 +27,25 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   void getLocationData() async {
     WeatherModel weatherModel = WeatherModel();
-    var weatherData = await weatherModel.getLocationWeather();
+    final weatherData = await weatherModel.getLocationWeather();
     PhotosModel photosModel = PhotosModel();
-    var photoURL = await photosModel.getPhotos([], 'cupertino');
-    print('>>>>> photoURL');
-    print(photoURL);
+
+    String city = weatherData['name'];
+
+    final photoURL = await photosModel.getPhotos([], city);
 
     // ignore: use_build_context_synchronously
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return HomeScreen(
-        locationWeather: weatherData,
-        resizedPhotoURL: photoURL,
-      );
-    }));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return HomeScreen(
+            locationWeather: weatherData,
+            resizedPhotoURL: photoURL,
+          );
+        },
+      ),
+    );
   }
 
   @override

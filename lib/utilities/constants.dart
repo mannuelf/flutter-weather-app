@@ -15,7 +15,7 @@ const kTempNumber = TextStyle(
 const kTempDegrees = TextStyle(
   fontFamily: 'Ubuntu',
   fontSize: 192.0,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.w400,
 );
 
 const kMessageTextStyle = TextStyle(
@@ -29,10 +29,7 @@ const kButtonTextStyle = TextStyle(
 );
 
 const kUiButtonStyle = TextStyle(
-  fontFamily: 'Ubuntu',
-  fontSize: 22.0,
-  fontWeight: FontWeight.normal
-);
+    fontFamily: 'Ubuntu', fontSize: 22.0, fontWeight: FontWeight.normal);
 
 const kConditionTextStyle = TextStyle(
   fontSize: 60.0,

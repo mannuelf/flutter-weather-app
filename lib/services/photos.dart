@@ -1,16 +1,13 @@
 import 'dart:convert';
-import 'dart:io' show File, Platform;
+import 'dart:io' show File;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:unsplash_client/unsplash_client.dart';
 
 class PhotosModel {
   var apiKey = dotenv.env['UNSPLASH_KEY'];
   var apiSecret = dotenv.env['UNSPLASH_SECRET'];
-  final _resizedURL = '';
-
 
   Future<String> getPhotos(List<String> args, String city) async {
-    print(city);
     // Load app credentials from environment variables or file.
     var appCredentials = loadAppCredentialsFromEnv();
 
@@ -29,24 +26,12 @@ class PhotosModel {
 
     // Fetch 5 random photos by calling `goAndGet` to execute the [Request]
     // returned from `random` and throw an exception if the [Response] is not ok.
-    final photos = await client.photos.random(count: 5).goAndGet();
-
-    // Do something with the photos.
-    print('--- MY Photos');
-    print(photos);
-    print('---\n');
-
+    final photos = await client.photos.random(count: 3, query: city).goAndGet();
     // Create a dynamically resizing url.
-    final resizedUrl = photos.first.urls.raw.resizePhoto(
-      width: 428,
-      height: 926,
-    );
-    print('--- Resized Url');
-    print(resizedUrl);
+    final resizedUrl = photos.first.urls.regular.resizePhoto();
     // Close the client when it is done being used to clean up allocated
     // resources.
     client.close();
-
     return resizedUrl.toString();
   }
 }
@@ -65,7 +50,8 @@ AppCredentials? loadAppCredentialsFromEnv() {
   return const AppCredentials(
     accessKey: "xUfS-tzZhGl3J502cH6FK5yvYoygImC8Wox6vfr15xU",
     secretKey: "LoJn3r7tMlma8apEtOAJEejGA-i7pxVN_UCMmIb2c-g",
-  );;
+  );
+  ;
 }
 
 /// Loads [AppCredentials] from a json file with the given [fileName].

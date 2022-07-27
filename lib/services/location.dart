@@ -15,20 +15,16 @@ class Location {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
-      print('⛱ Location serviceEnabled');
-      print('Location services are disabled.');
+      Alert(message: 'Turn on location services to use this app, please.').show();
       return Future.error('Location services are disabled.');
     }
 
     permission = await Geolocator.checkPermission();
-    print('⛱ Location permission');
-    print(permission);
+
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      print('❌ Location permission');
-      print(permission);
+
       if (permission == LocationPermission.deniedForever) {
-        print('❌ LocationPermission.deniedForever');
         return Future.error('Location Not Available');
       }
     } else {
@@ -42,8 +38,6 @@ class Location {
         latitude = position.latitude;
         longitude = position.longitude;
       } catch (e) {
-        print(' 👎 Location');
-        print(e);
         Alert(message: 'Turn on location services to use this app').show();
       }
     }

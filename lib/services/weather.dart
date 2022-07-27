@@ -20,8 +20,8 @@ class WeatherModel {
     await location.getCurrentLocation();
 
     final query = 'lat=${location.latitude}&lon=${location.longitude}';
-
     url = '$baseUrl/$weatherRoute?$query&units=$units&appid=$apiKey';
+
     NetworkHelper networkHelper = NetworkHelper(url);
     var decodedData = await networkHelper.getData();
     final weatherData = decodedData;
@@ -40,7 +40,7 @@ class WeatherModel {
     return weatherData;
   }
 
-  Widget getWeatherIcon(int condition) {
+  Icon getWeatherIcon(int condition) {
     if (condition < 300) {
       return const Icon(WeatherIcons.thunderstorm, size: 132.0);
     } else if (condition < 500) {

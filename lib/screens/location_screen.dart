@@ -20,7 +20,7 @@ class _LocationScreenState extends State<LocationScreen> {
   int conditionNo = 0;
   int temperature = 0;
   String city = '';
-  String weatherIcon = '';
+  late Icon weatherIcon;
   String weatherMessage = '';
 
   @override
@@ -38,8 +38,8 @@ class _LocationScreenState extends State<LocationScreen> {
     setState(() {
       if (weatherData == null) {
         temperature = 0;
-        city = '';
-        weatherIcon = 'Error';
+        city = 'Unable to get city';
+        weatherIcon = const Icon(Icons.error);
         weatherMessage = 'Unable to get weather';
         return;
       }
@@ -118,10 +118,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       '$temperature°',
                       style: kTempNumber,
                     ),
-                    Text(
-                      weatherIcon,
-                      style: kConditionTextStyle,
-                    ),
+                    weatherIcon,
                   ],
                 ),
               ),
