@@ -26,14 +26,31 @@ class PhotosModel {
 
     // Fetch 5 random photos by calling `goAndGet` to execute the [Request]
     // returned from `random` and throw an exception if the [Response] is not ok.
-    final photos = await client.photos.random(count: 3, query: city).goAndGet();
+    final photos = await client.photos.random(count: 1, query: city).goAndGet();
+    print('photos.dart');
+    print(photos[0].id);
+    print('----\n');
+    final userData = await client.photos.download(photos[0].id).goAndGet();
+    final onePhoto = await client.photos.get(photos[0].id).goAndGet();
+    print('photos.dart: userData');
+    print(userData);
+    print('----\n');
+
     // Create a dynamically resizing url.
     final resizedUrl = photos.first.urls.regular.resizePhoto();
+    final firstName = photos.first.user.firstName.toString();
+    final lastName = photos.first.user.lastName.toString();
+    print('photos.dart: firstName');
+    print(firstName);
+    print(lastName);
+    print('----\n');
     // Close the client when it is done being used to clean up allocated
     // resources.
     client.close();
     return resizedUrl.toString();
   }
+
+  void getUserData(){}
 }
 
 /// Loads [AppCredentials] from environment variables

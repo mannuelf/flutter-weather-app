@@ -188,6 +188,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              Column(children: const <Widget>[
+                Text(
+                  'Photo by artistName on Unsplash',
+                  style: TextStyle(fontSize: 14),
+                ),
+              ]),
             ],
           ),
         ),
