@@ -26,6 +26,7 @@ const kMessageTextStyle = TextStyle(
 const kButtonTextStyle = TextStyle(
   fontFamily: 'Ubuntu',
   fontSize: 26.0,
+  color: Colors.white,
 );
 
 const kUiButtonStyle = TextStyle(

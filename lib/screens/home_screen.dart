@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget {
   final resizedPhotoURL;
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeScreenState createState() => _HomeScreenState();
 }
 
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int conditionNo = 0;
   int temperature = 0;
   String city = '';
-  Widget weatherIcon = const Icon(WeatherIcons.refresh, size: 132.0);
+  Widget weatherIcon = const Icon(WeatherIcons.refresh, size: 124.0);
   String weatherMessage = '';
   String condition = '';
   var customImg;
