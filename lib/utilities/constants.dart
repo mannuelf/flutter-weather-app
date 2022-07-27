@@ -26,6 +26,18 @@ const kConditionTextStyle = TextStyle(
   fontSize: 60.0,
 );
 
+const kCityLabelStyle = TextStyle(
+  fontFamily: 'Ubuntu',
+  fontSize: 32.0,
+  fontWeight: FontWeight.bold,
+);
+
+const kConditionLabelStyle = TextStyle(
+  fontFamily: 'Ubuntu',
+  fontSize: 20.0,
+  fontWeight: FontWeight.w300,
+);
+
 const kTextInputDecoration = InputDecoration(
   filled: true,
   fillColor: Colors.white,
