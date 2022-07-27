@@ -1,4 +1,4 @@
-name: weatherapp
+name: personalweather
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -38,6 +38,8 @@ dependencies:
   alert: ^2.0.1
   flutter_dotenv: ^5.0.2
   weather_icons: ^3.0.0
+  unsplash_client: ^2.1.0+3
+  path_provider: ^2.0.11
 
 dev_dependencies:
   flutter_test:

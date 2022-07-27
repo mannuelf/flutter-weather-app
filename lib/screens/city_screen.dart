@@ -35,7 +35,7 @@ class _CityScreenState extends State<CityScreen> {
             children: <Widget>[
               Align(
                 alignment: Alignment.topLeft,
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -56,7 +56,7 @@ class _CityScreenState extends State<CityScreen> {
                   }),
                 ),
               ),
-              FlatButton(
+              TextButton(
                 onPressed: () {
                   // pass data back to previous screen/or any screen
                   Navigator.pop(context, city);

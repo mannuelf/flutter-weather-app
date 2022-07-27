@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+const kBrandBlue = 0xFF073B4C;
+const kBrandLightBlue = 0xFF118AB2;
+const kBrandGreen = 0xFF06D6A0;
+const kBrandYellow = 0xFFFFD166;
+const kBrandPink = 0xFFEF476F;
+
 const kTempNumber = TextStyle(
   fontFamily: 'Ubuntu',
   fontSize: 192.0,
@@ -18,8 +24,14 @@ const kMessageTextStyle = TextStyle(
 );
 
 const kButtonTextStyle = TextStyle(
-  fontSize: 26.0,
   fontFamily: 'Ubuntu',
+  fontSize: 26.0,
+);
+
+const kUiButtonStyle = TextStyle(
+  fontFamily: 'Ubuntu',
+  fontSize: 22.0,
+  fontWeight: FontWeight.normal
 );
 
 const kConditionTextStyle = TextStyle(
@@ -34,7 +46,7 @@ const kCityLabelStyle = TextStyle(
 
 const kConditionLabelStyle = TextStyle(
   fontFamily: 'Ubuntu',
-  fontSize: 20.0,
+  fontSize: 22.0,
   fontWeight: FontWeight.w300,
 );
 
@@ -49,3 +61,5 @@ const kTextInputDecoration = InputDecoration(
     borderSide: BorderSide.none,
   ),
 );
+
+// Buttons
