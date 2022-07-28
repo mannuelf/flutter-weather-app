@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:personalweather/services/photos.dart';
-import 'package:personalweather/services/weather.dart';
-import 'package:personalweather/utilities/constants.dart';
+import 'package:whatsweatherdoing/services/photos.dart';
+import 'package:whatsweatherdoing/services/weather.dart';
+import 'package:whatsweatherdoing/utilities/constants.dart';
 
 import 'home_screen.dart';
 

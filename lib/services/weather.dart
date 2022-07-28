@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:personalweather/services/location.dart';
-import 'package:personalweather/services/networking.dart';
+import 'package:whatsweatherdoing/services/location.dart';
+import 'package:whatsweatherdoing/services/networking.dart';
 import 'package:weather_icons/weather_icons.dart';
 
 var apiKey = dotenv.env['OPEN_WEATHER_API_KEY'];

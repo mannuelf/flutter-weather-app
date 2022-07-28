@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personalweather/utilities/constants.dart';
+import 'package:whatsweatherdoing/utilities/constants.dart';
 import 'package:url_launcher/link.dart';
 
 class SearchScreen extends StatefulWidget {

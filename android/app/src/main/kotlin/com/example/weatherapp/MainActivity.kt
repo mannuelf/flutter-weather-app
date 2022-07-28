@@ -1,4 +1,4 @@
-package com.mannuelferreira.personalweather
+package com.whatsweatherdoing
 
 import io.flutter.embedding.android.FlutterActivity
 

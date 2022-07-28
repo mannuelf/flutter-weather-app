@@ -1,9 +1,9 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
-import 'package:personalweather/services/photos.dart';
-import 'package:personalweather/services/weather.dart';
-import 'package:personalweather/utilities/constants.dart';
+import 'package:whatsweatherdoing/services/photos.dart';
+import 'package:whatsweatherdoing/services/weather.dart';
+import 'package:whatsweatherdoing/utilities/constants.dart';
 import 'package:url_launcher/link.dart';
 import 'package:weather_icons/weather_icons.dart';
 

@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mannuelferreira.personalweather">
+    package="com.whatsweatherdoing">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="personalweather">
+        android:label="whatsweatherdoing">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -34,7 +34,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="personalweather.mannuelferreira.com"
+                    android:host="whatsweatherdoing.mannuelferreira.com"
                     android:scheme="https" />
                 <data android:scheme="https" />
             </intent-filter>
