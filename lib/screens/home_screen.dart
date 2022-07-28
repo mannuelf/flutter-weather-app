@@ -77,10 +77,11 @@ class _HomeScreenState extends State<HomeScreen> {
       artistName = _photoData['artistName'].toString();
 
       imageUri = _photoData['imageUri'].toString();
-      if (imageUri == null) {
+      if (imageUri != null) {
+        customImg = NetworkImage(imageUri, scale: 0.8);
+      } else {
         customImg = NetworkImage(fallbackUri, scale: 0.8);
       }
-      customImg = NetworkImage(imageUri, scale: 0.3);
     });
   }
 
@@ -116,123 +117,145 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         body: Container(
+          alignment: Alignment.bottomCenter,
+          height: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: customImg,
               fit: BoxFit.cover,
             ),
           ),
-          child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '$temperature',
-                    style: kTempNumber,
+          child: Stack(
+            children: [
+              Container(
+                alignment: Alignment.topCenter,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  gradient: LinearGradient(
+                    begin: FractionalOffset.bottomCenter,
+                    end: FractionalOffset.topCenter,
+                    colors: [
+                      Colors.black.withOpacity(0.0),
+                      Colors.black.withOpacity(0.7),
+                    ],
+                    stops: [0.0, 1.0],
                   ),
-                  const Text(
-                    '°',
-                    style: kTempDegrees,
-                  ),
-                ],
+                ),
               ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    city,
-                    style: kCityLabelStyle,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '$temperature',
+                        style: kTempNumber,
+                      ),
+                      const Text(
+                        '°',
+                        style: kTempDegrees,
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 16.0,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        city,
+                        style: kCityLabelStyle,
+                      ),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      weatherIcon,
+                      const SizedBox(
+                        height: 42.0,
+                      ),
+                      Text(
+                        condition,
+                        style: kConditionLabelStyle,
+                      )
+                    ],
                   ),
-                  weatherIcon,
                   const SizedBox(
                     height: 42.0,
                   ),
-                  Text(
-                    condition,
-                    style: kConditionLabelStyle,
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 42.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  OutlinedButton(
-                    style: uiButtonStyle,
-                    onPressed: () async {
-                      var typedName = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return const CityScreen();
-                          },
-                        ),
-                      );
-                      if (typedName != null) {
-                        var weatherData =
-                            await weather.getCityWeather(typedName);
-                        var photoData =
-                            await photos.getPhotos([], weatherData['name']);
-                        updateUI(weatherData, photoData);
-                      }
-                    },
-                    child: const Icon(Icons.search_rounded, size: 36),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      OutlinedButton(
+                        style: uiButtonStyle,
+                        onPressed: () async {
+                          var typedName = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const CityScreen();
+                              },
+                            ),
+                          );
+                          if (typedName != null) {
+                            var weatherData =
+                                await weather.getCityWeather(typedName);
+                            var photoData =
+                                await photos.getPhotos([], weatherData['name']);
+                            updateUI(weatherData, photoData);
+                          }
+                        },
+                        child: const Icon(Icons.search_rounded, size: 36),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      OutlinedButton(
+                        style: uiButtonStyle,
+                        onPressed: () async {
+                          var weatherData = await weather.getLocationWeather();
+                          var photoData =
+                              await photos.getPhotos([], weatherData['name']);
+                          updateUI(weatherData, photoData);
+                        },
+                        child: const Icon(Icons.refresh_rounded, size: 36),
+                      ),
+                    ],
                   ),
                   const SizedBox(
-                    width: 20,
+                    height: 20,
                   ),
-                  OutlinedButton(
-                    style: uiButtonStyle,
-                    onPressed: () async {
-                      var weatherData = await weather.getLocationWeather();
-                      var photoData =
-                          await photos.getPhotos([], weatherData['name']);
-                      updateUI(weatherData, photoData);
-                    },
-                    child: const Icon(Icons.refresh_rounded, size: 36),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text(
-                      'Photo by: ',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    Link(
-                      uri: Uri.parse(artistUri),
-                      target: LinkTarget.blank,
-                      builder: (context, followLink) => MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: followLink,
-                          child: Text(
-                            artistName,
-                            style: const TextStyle(
-                              decoration: TextDecoration.underline,
-                              decorationStyle: TextDecorationStyle.solid,
-                              color: Colors.white,
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const Text(
+                          'Photo by: ',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        Link(
+                          uri: Uri.parse(artistUri),
+                          target: LinkTarget.blank,
+                          builder: (context, followLink) => MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              onTap: followLink,
+                              child: Text(
+                                artistName,
+                                style: const TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  decorationStyle: TextDecorationStyle.solid,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    const Text(
-                      ' on Unsplash',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ]),
+                        const Text(
+                          ' on Unsplash',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ]),
+                ],
+              )
             ],
           ),
         ),
