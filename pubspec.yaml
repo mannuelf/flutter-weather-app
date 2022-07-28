@@ -40,6 +40,7 @@ dependencies:
   weather_icons: ^3.0.0
   unsplash_client: ^2.1.0+3
   path_provider: ^2.0.11
+  url_launcher: ^6.1.5
 
 dev_dependencies:
   flutter_test:

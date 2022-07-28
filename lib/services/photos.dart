@@ -29,21 +29,23 @@ class PhotosModel {
     final photos = await client.photos.random(count: 1, query: city).goAndGet();
     print('photos.dart');
     print(photos[0].id);
-    print('----\n');
+    print('--------\n');
     final userData = await client.photos.download(photos[0].id).goAndGet();
     final onePhoto = await client.photos.get(photos[0].id).goAndGet();
     print('photos.dart: userData');
     print(userData);
-    print('----\n');
-
+    print('--------\n');
+    print('photos.dart: onePhoto');
+    print(onePhoto);
+    print('--------\n');;
     // Create a dynamically resizing url.
     final resizedUrl = photos.first.urls.regular.resizePhoto();
-    final firstName = photos.first.user.firstName.toString();
-    final lastName = photos.first.user.lastName.toString();
-    print('photos.dart: firstName');
-    print(firstName);
-    print(lastName);
-    print('----\n');
+    final artistName = photos.first.user.name;
+    final artistUri = photos.first.user.links.html;
+    print('photos.dart: Artist Name');
+    print(artistName);
+    print(artistUri);
+    print('--------\n');
     // Close the client when it is done being used to clean up allocated
     // resources.
     client.close();

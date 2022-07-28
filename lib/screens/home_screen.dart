@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/link.dart';
 import 'package:weather_icons/weather_icons.dart';
 import '../services/photos.dart';
 import '../services/weather.dart';
@@ -191,7 +192,20 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 20,
               ),
-              Column(children: const <Widget>[
+              Column(children: <Widget>[
+                Link(
+                  uri: Uri.parse('https://unsplash.com/@tianshu'),
+                  builder: (context, followLink) => MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: followLink,
+                      child: Text(
+                        'Click me',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
                 Text(
                   'Photo by artistName on Unsplash',
                   style: TextStyle(fontSize: 14),

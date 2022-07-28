@@ -26,6 +26,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
     super.deactivate();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   void getLocationData() async {
     WeatherModel weatherModel = WeatherModel();
     final weatherData = await weatherModel.getLocationWeather();
