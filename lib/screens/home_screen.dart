@@ -1,21 +1,22 @@
 import 'dart:core';
+
 import 'package:flutter/material.dart';
+import 'package:personalweather/services/photos.dart';
+import 'package:personalweather/services/weather.dart';
+import 'package:personalweather/utilities/constants.dart';
 import 'package:url_launcher/link.dart';
 import 'package:weather_icons/weather_icons.dart';
-import '../services/photos.dart';
-import '../services/weather.dart';
 
-import '../utilities/constants.dart';
 import 'city_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen(
-      {Key? key, required this.locationWeather, this.resizedPhotoURL})
+      {Key? key, required this.locationWeather, required this.photoData})
       : super(key: key);
 
   // creates arguments for this class to pass data into it
   final locationWeather;
-  final resizedPhotoURL;
+  final photoData;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -23,15 +24,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  WeatherModel weather = WeatherModel();
   PhotosModel photos = PhotosModel();
+  WeatherModel weather = WeatherModel();
+
   int conditionNo = 0;
   int temperature = 0;
+  Map<String, String> _photoData = {};
+  String artistName = '';
+  String artistUri = '';
   String city = '';
-  Widget weatherIcon = const Icon(WeatherIcons.refresh, size: 124.0);
-  String weatherMessage = '';
   String condition = '';
+  String fallbackUri = 'images/city_bg_01.jpeg';
+  String imageUri = '';
+  String weatherMessage = '';
   var customImg;
+  Widget weatherIcon = const Icon(WeatherIcons.refresh, size: 124.0);
 
   @override
   void initState() {
@@ -40,19 +47,18 @@ class _HomeScreenState extends State<HomeScreen> {
     // widget.someThing will access someThing on the object widget.
     super.initState();
     // pass gotten data to widget finally.
-    updateUI(widget.locationWeather, widget.resizedPhotoURL);
+    updateUI(widget.locationWeather, widget.photoData);
   }
 
   // uses the variable from loading_screen
-  void updateUI(dynamic weatherData, String resizedPhotoURL) {
+  void updateUI(dynamic weatherData, Map<String, String> photoData) {
     setState(() {
       if (weatherData == null) {
-        temperature = 0;
         city = 'No city';
+        condition = '';
+        temperature = 0;
         weatherIcon = const Icon(WeatherIcons.refresh, size: 132.0);
         weatherMessage = 'Unable to get weather';
-        condition = '';
-        customImg = 'images/city_bg_04.jpeg';
         return;
       }
       // anything Ui related "state" must be updated
@@ -65,7 +71,16 @@ class _HomeScreenState extends State<HomeScreen> {
       temperature = temp.toInt();
       weatherMessage = weather.getMessage(temperature);
       condition = weather.getWeatherConditionLabel(conditionNo);
-      customImg = NetworkImage(resizedPhotoURL, scale: 0.8);
+
+      _photoData = photoData;
+      artistUri = _photoData['artistUri'].toString();
+      artistName = _photoData['artistName'].toString();
+
+      imageUri = _photoData['imageUri'].toString();
+      if (imageUri == null) {
+        customImg = NetworkImage(fallbackUri, scale: 0.8);
+      }
+      customImg = NetworkImage(imageUri, scale: 0.3);
     });
   }
 
@@ -98,18 +113,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
 
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: customImg,
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-                Colors.white.withOpacity(0.8), BlendMode.dstATop),
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: customImg,
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        constraints: const BoxConstraints.expand(),
-        child: SafeArea(
           child: Column(
             children: <Widget>[
               Row(
@@ -164,12 +176,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       );
                       if (typedName != null) {
-                        // get weather with the string
                         var weatherData =
                             await weather.getCityWeather(typedName);
-                        var photoURL =
+                        var photoData =
                             await photos.getPhotos([], weatherData['name']);
-                        updateUI(weatherData, photoURL);
+                        updateUI(weatherData, photoData);
                       }
                     },
                     child: const Icon(Icons.search_rounded, size: 36),
@@ -181,9 +192,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: uiButtonStyle,
                     onPressed: () async {
                       var weatherData = await weather.getLocationWeather();
-                      var photoURL =
+                      var photoData =
                           await photos.getPhotos([], weatherData['name']);
-                      updateUI(weatherData, photoURL);
+                      updateUI(weatherData, photoData);
                     },
                     child: const Icon(Icons.refresh_rounded, size: 36),
                   ),
@@ -192,25 +203,36 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 20,
               ),
-              Column(children: <Widget>[
-                Link(
-                  uri: Uri.parse('https://unsplash.com/@tianshu'),
-                  builder: (context, followLink) => MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: followLink,
-                      child: Text(
-                        'Click me',
-                        style: TextStyle(color: Colors.white),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Text(
+                      'Photo by: ',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    Link(
+                      uri: Uri.parse(artistUri),
+                      target: LinkTarget.blank,
+                      builder: (context, followLink) => MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: followLink,
+                          child: Text(
+                            artistName,
+                            style: const TextStyle(
+                              decoration: TextDecoration.underline,
+                              decorationStyle: TextDecorationStyle.solid,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Text(
-                  'Photo by artistName on Unsplash',
-                  style: TextStyle(fontSize: 14),
-                ),
-              ]),
+                    const Text(
+                      ' on Unsplash',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ]),
             ],
           ),
         ),

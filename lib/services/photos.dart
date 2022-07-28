@@ -1,13 +1,15 @@
 import 'dart:convert';
 import 'dart:io' show File;
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:unsplash_client/unsplash_client.dart';
 
 class PhotosModel {
   var apiKey = dotenv.env['UNSPLASH_KEY'];
   var apiSecret = dotenv.env['UNSPLASH_SECRET'];
+  late Map<String, String> _photoData = {};
 
-  Future<String> getPhotos(List<String> args, String city) async {
+  Future<Map<String, String>> getPhotos(List<String> args, String city) async {
     // Load app credentials from environment variables or file.
     var appCredentials = loadAppCredentialsFromEnv();
 
@@ -24,35 +26,38 @@ class PhotosModel {
       settings: ClientSettings(credentials: appCredentials),
     );
 
-    // Fetch 5 random photos by calling `goAndGet` to execute the [Request]
+    // Fetch 1 random photo matched with query by calling `goAndGet` to execute the [Request]
     // returned from `random` and throw an exception if the [Response] is not ok.
-    final photos = await client.photos.random(count: 1, query: city).goAndGet();
-    print('photos.dart');
-    print(photos[0].id);
-    print('--------\n');
-    final userData = await client.photos.download(photos[0].id).goAndGet();
-    final onePhoto = await client.photos.get(photos[0].id).goAndGet();
-    print('photos.dart: userData');
-    print(userData);
-    print('--------\n');
-    print('photos.dart: onePhoto');
-    print(onePhoto);
-    print('--------\n');;
-    // Create a dynamically resizing url.
-    final resizedUrl = photos.first.urls.regular.resizePhoto();
-    final artistName = photos.first.user.name;
-    final artistUri = photos.first.user.links.html;
-    print('photos.dart: Artist Name');
-    print(artistName);
-    print(artistUri);
-    print('--------\n');
-    // Close the client when it is done being used to clean up allocated
-    // resources.
-    client.close();
-    return resizedUrl.toString();
-  }
+    try {
+      final photos =
+          await client.photos.random(count: 1, query: city).goAndGet();
 
-  void getUserData(){}
+      // See: [Unsplash docs](https://unsplash.com/documentation#track-a-photo-download)
+      final downloadTracker =
+          await client.photos.download(photos[0].id).goAndGet();
+      //final onePhoto = await client.photos.get(photos[0].id).goAndGet();
+
+      final artistName = photos.first.user.name;
+      final artistUri = photos.first.user.links.html;
+      final resizedUrl = photos.first.urls.regular.resizePhoto();
+
+      _photoData.addAll({
+        'artistName': artistName.toString(),
+        'artistUri': artistUri.toString(),
+        'downloadTracker': downloadTracker.toString(),
+        'imageUri': resizedUrl.toString(),
+      });
+
+      client.close();
+      return _photoData;
+    } catch (e) {
+      print('--------photos.dart: ERROR');
+      print(e);
+      print('--------\n');
+      client.close();
+      return {};
+    }
+  }
 }
 
 /// Loads [AppCredentials] from environment variables
@@ -70,7 +75,6 @@ AppCredentials? loadAppCredentialsFromEnv() {
     accessKey: "xUfS-tzZhGl3J502cH6FK5yvYoygImC8Wox6vfr15xU",
     secretKey: "LoJn3r7tMlma8apEtOAJEejGA-i7pxVN_UCMmIb2c-g",
   );
-  ;
 }
 
 /// Loads [AppCredentials] from a json file with the given [fileName].

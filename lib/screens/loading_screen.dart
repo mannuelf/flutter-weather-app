@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '../services/photos.dart';
-import '../utilities/constants.dart';
-import '../services/weather.dart';
+import 'package:personalweather/services/photos.dart';
+import 'package:personalweather/services/weather.dart';
+import 'package:personalweather/utilities/constants.dart';
+
 import 'home_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -34,11 +35,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void getLocationData() async {
     WeatherModel weatherModel = WeatherModel();
     final weatherData = await weatherModel.getLocationWeather();
+
     PhotosModel photosModel = PhotosModel();
-
     String city = weatherData['name'];
-
-    final photoURL = await photosModel.getPhotos([], city);
+    final photoData = await photosModel.getPhotos([], city);
 
     // ignore: use_build_context_synchronously
     Navigator.push(
@@ -47,7 +47,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         builder: (context) {
           return HomeScreen(
             locationWeather: weatherData,
-            resizedPhotoURL: photoURL,
+            photoData: photoData,
           );
         },
       ),
