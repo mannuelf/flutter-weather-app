@@ -51,9 +51,6 @@ class PhotosModel {
       client.close();
       return _photoData;
     } catch (e) {
-      print('--------photos.dart: ERROR');
-      print(e);
-      print('--------\n');
       client.close();
       return {};
     }

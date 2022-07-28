@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Colors.black.withOpacity(0.0),
                       Colors.black.withOpacity(0.7),
                     ],
-                    stops: [0.0, 1.0],
+                    stops: const [0.0, 1.0],
                   ),
                 ),
               ),
@@ -192,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return const CityScreen();
+                                return CityScreen(photoData: _photoData);
                               },
                             ),
                           );

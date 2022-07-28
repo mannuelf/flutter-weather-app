@@ -3,7 +3,8 @@ import 'package:personalweather/utilities/constants.dart';
 import 'package:url_launcher/link.dart';
 
 class CityScreen extends StatefulWidget {
-  const CityScreen({Key? key}) : super(key: key);
+  const CityScreen({Key? key, required this.photoData}) : super(key: key);
+  final photoData;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -11,8 +12,35 @@ class CityScreen extends StatefulWidget {
 }
 
 class _CityScreenState extends State<CityScreen> {
+  Map<String, String> _photoData = {};
+  String artistName = '';
+  String artistUri = '';
+  String fallbackUri = '';
+  String imageUri = '';
   var city = '';
-  int bgNum = 1;
+  var customImg;
+
+  @override
+  void initState() {
+    super.initState();
+    updateUI(widget.photoData);
+  }
+
+  void updateUI(Map<String, String> photoData) {
+    _photoData = photoData;
+    // render random image
+    setState(() {
+      artistName = _photoData['artistName'].toString();
+      artistUri = _photoData['artistUri'].toString();
+      imageUri = _photoData['imageUri'].toString();
+
+      if (imageUri != '') {
+        customImg = NetworkImage(imageUri, scale: 1);
+      } else {
+        customImg = NetworkImage(fallbackUri, scale: 1);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +74,9 @@ class _CityScreenState extends State<CityScreen> {
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/city_bg_01.jpeg'),
+            image: customImg,
             fit: BoxFit.cover,
           ),
         ),
@@ -119,14 +147,14 @@ class _CityScreenState extends State<CityScreen> {
                         style: TextStyle(fontSize: 16),
                       ),
                       Link(
-                        uri: Uri.parse('artistUri'),
+                        uri: Uri.parse(artistUri),
                         target: LinkTarget.blank,
                         builder: (context, followLink) => MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
                             onTap: followLink,
                             child: Text(
-                              'artistName',
+                              artistName,
                               style: TextStyle(
                                 decoration: TextDecoration.underline,
                                 decorationStyle: TextDecorationStyle.solid,
