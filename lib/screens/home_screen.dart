@@ -7,7 +7,7 @@ import 'package:personalweather/utilities/constants.dart';
 import 'package:url_launcher/link.dart';
 import 'package:weather_icons/weather_icons.dart';
 
-import 'city_screen.dart';
+import 'search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen(
@@ -38,6 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
   String imageUri = '';
   String weatherMessage = '';
   var customImg;
+  String utmSource = '?utm_source=whatsweatherdoing.com';
+  String utmReferral = '&utm_medium=referral';
+  String unsplashUri = '';
   Widget weatherIcon = const Icon(WeatherIcons.refresh, size: 124.0);
 
   @override
@@ -75,7 +78,8 @@ class _HomeScreenState extends State<HomeScreen> {
       _photoData = photoData;
       artistUri = _photoData['artistUri'].toString();
       artistName = _photoData['artistName'].toString();
-
+      artistUri = _photoData['artistUri'].toString() + utmSource + utmReferral;
+      unsplashUri = 'https://unsplash.com${utmSource}${utmReferral}';
       imageUri = _photoData['imageUri'].toString();
       if (imageUri != null) {
         customImg = NetworkImage(imageUri, scale: 0.8);
@@ -192,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return CityScreen(photoData: _photoData);
+                                return SearchScreen(photoData: _photoData);
                               },
                             ),
                           );
@@ -225,35 +229,60 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 20,
                   ),
                   Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const Text(
-                          'Photo by: ',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        Link(
-                          uri: Uri.parse(artistUri),
-                          target: LinkTarget.blank,
-                          builder: (context, followLink) => MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              onTap: followLink,
-                              child: Text(
-                                artistName,
-                                style: const TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  decorationStyle: TextDecorationStyle.solid,
-                                  color: Colors.white,
-                                ),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Text(
+                        'Photo by: ',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Link(
+                        uri: Uri.parse(artistUri),
+                        target: LinkTarget.blank,
+                        builder: (context, followLink) => MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: followLink,
+                            child: Text(
+                              artistName,
+                              style: const TextStyle(
+                                decoration: TextDecoration.underline,
+                                decorationStyle: TextDecorationStyle.solid,
+                                color: Colors.white,
                               ),
                             ),
                           ),
                         ),
-                        const Text(
-                          ' on Unsplash',
-                          style: TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        width: 5.0,
+                      ),
+                      const Text(
+                        "on",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      const SizedBox(
+                        width: 5.0,
+                      ),
+                      Link(
+                        uri: Uri.parse(unsplashUri),
+                        target: LinkTarget.blank,
+                        builder: (context, followLink) => MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: followLink,
+                            child: const Text(
+                              "Unsplash",
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                decorationStyle: TextDecorationStyle.solid,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         ),
-                      ]),
+                      ),
+                    ],
+                  ),
                 ],
               )
             ],

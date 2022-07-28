@@ -69,8 +69,8 @@ AppCredentials? loadAppCredentialsFromEnv() {
   //
   // }
   return const AppCredentials(
-    accessKey: "xUfS-tzZhGl3J502cH6FK5yvYoygImC8Wox6vfr15xU",
-    secretKey: "LoJn3r7tMlma8apEtOAJEejGA-i7pxVN_UCMmIb2c-g",
+    accessKey: "e5DBsUn4hY6927nfe_PLW1bdZMEAFJ7zcCUxDQvYk3k",
+    secretKey: "t2njqSvpJGpIU6s0CpuEOFHmLUi7kO5rN8SrZw8oRv4",
   );
 }
 

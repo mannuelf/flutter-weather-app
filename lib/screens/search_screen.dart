@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:personalweather/utilities/constants.dart';
 import 'package:url_launcher/link.dart';
 
-class CityScreen extends StatefulWidget {
-  const CityScreen({Key? key, required this.photoData}) : super(key: key);
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({Key? key, required this.photoData}) : super(key: key);
   final photoData;
 
   @override
   // ignore: library_private_types_in_public_api
-  _CityScreenState createState() => _CityScreenState();
+  _SearchScreenState createState() => _SearchScreenState();
 }
 
-class _CityScreenState extends State<CityScreen> {
+class _SearchScreenState extends State<SearchScreen> {
   Map<String, String> _photoData = {};
   String artistName = '';
   String artistUri = '';
@@ -19,6 +19,9 @@ class _CityScreenState extends State<CityScreen> {
   String imageUri = '';
   var city = '';
   var customImg;
+  String utmSource = '?utm_source=whatsweatherdoing.com';
+  String utmReferral = '&utm_medium=referral';
+  String unsplashUri = '';
 
   @override
   void initState() {
@@ -31,8 +34,9 @@ class _CityScreenState extends State<CityScreen> {
     // render random image
     setState(() {
       artistName = _photoData['artistName'].toString();
-      artistUri = _photoData['artistUri'].toString();
+      artistUri = _photoData["artistUri"].toString() + utmSource + utmReferral;
       imageUri = _photoData['imageUri'].toString();
+      unsplashUri = 'https://unsplash.com$utmSource$utmReferral';
 
       if (imageUri != '') {
         customImg = NetworkImage(imageUri, scale: 1);
@@ -155,7 +159,7 @@ class _CityScreenState extends State<CityScreen> {
                             onTap: followLink,
                             child: Text(
                               artistName,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 decoration: TextDecoration.underline,
                                 decorationStyle: TextDecorationStyle.solid,
                                 color: Colors.white,
@@ -164,9 +168,33 @@ class _CityScreenState extends State<CityScreen> {
                           ),
                         ),
                       ),
+                      const SizedBox(
+                        width: 5.0,
+                      ),
                       const Text(
-                        ' on Unsplash',
-                        style: TextStyle(fontSize: 16),
+                        'on',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      const SizedBox(
+                        width: 5.0,
+                      ),
+                      Link(
+                        uri: Uri.parse(unsplashUri),
+                        target: LinkTarget.blank,
+                        builder: (context, followLink) => MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: followLink,
+                            child: const Text(
+                              "Unsplash",
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                decorationStyle: TextDecorationStyle.solid,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
