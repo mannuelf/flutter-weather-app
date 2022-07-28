@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personalweather/utilities/constants.dart';
+import 'package:url_launcher/link.dart';
 
 class CityScreen extends StatefulWidget {
   const CityScreen({Key? key}) : super(key: key);
@@ -51,53 +52,96 @@ class _CityScreenState extends State<CityScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        constraints: const BoxConstraints.expand(),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.only(
+                left: 16.0, right: 16.0, top: 0, bottom: 0),
             child: Column(
               children: <Widget>[
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Icon(
-                      Icons.arrow_back_ios,
-                      size: 42.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                TextField(
-                  style: const TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'Enter city name',
-                    hintStyle: const TextStyle(color: Colors.grey),
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide.none,
-                    ),
-                    suffixIcon: OutlinedButton(
-                      style: uiButtonStyle,
+                Expanded(
+                  flex: 1,
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: TextButton(
                       onPressed: () {
-                        // pass data back to previous screen/or any screen
-                        Navigator.pop(context, city);
+                        Navigator.pop(context);
                       },
                       child: const Icon(
-                        Icons.search_outlined,
-                        color: Color(kBrandBlue),
+                        Icons.arrow_back_ios,
                         size: 42.0,
+                        color: Colors.white,
                       ),
                     ),
                   ),
-                  onChanged: ((value) {
-                    // assign value and pass value to weather module
-                    city = value;
-                  }),
+                ),
+                Expanded(
+                  flex: 8,
+                  child: Container(
+                    alignment: Alignment.bottomCenter,
+                    child: TextField(
+                      style: const TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Enter city name',
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide.none,
+                        ),
+                        suffixIcon: OutlinedButton(
+                          style: uiButtonStyle,
+                          onPressed: () {
+                            // pass data back to previous screen/or any screen
+                            Navigator.pop(context, city);
+                          },
+                          child: const Icon(
+                            Icons.search_outlined,
+                            color: Color(kBrandBlue),
+                            size: 42.0,
+                          ),
+                        ),
+                      ),
+                      onChanged: ((value) {
+                        // assign value and pass value to weather module
+                        city = value;
+                      }),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Text(
+                        'Photo by: ',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Link(
+                        uri: Uri.parse('artistUri'),
+                        target: LinkTarget.blank,
+                        builder: (context, followLink) => MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: followLink,
+                            child: Text(
+                              'artistName',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                decorationStyle: TextDecorationStyle.solid,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Text(
+                        ' on Unsplash',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
