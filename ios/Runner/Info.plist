@@ -16,7 +16,7 @@
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
         <key>CFBundleURLName</key>
-        <string>whatsweatherdoing.mannuelferreira.com</string>
+        <string>whatsweatherdoing.com</string>
         <key>CFBundleURLSchemes</key>
         <array>
         <string>customscheme</string>

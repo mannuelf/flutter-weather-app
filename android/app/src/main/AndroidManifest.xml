@@ -34,7 +34,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="whatsweatherdoing.mannuelferreira.com"
+                    android:host="whatsweatherdoing.com"
                     android:scheme="https" />
                 <data android:scheme="https" />
             </intent-filter>

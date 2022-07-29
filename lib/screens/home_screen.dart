@@ -82,9 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
       unsplashUri = 'https://unsplash.com${utmSource}${utmReferral}';
       imageUri = _photoData['imageUri'].toString();
       if (imageUri != null) {
-        customImg = NetworkImage(imageUri, scale: 0.8);
+        customImg = NetworkImage(imageUri, scale: 0.4);
       } else {
-        customImg = NetworkImage(fallbackUri, scale: 0.8);
+        customImg = NetworkImage(fallbackUri, scale: 0.4);
       }
     });
   }
