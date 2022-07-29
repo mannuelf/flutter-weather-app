@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:whatsweatherdoing/models/environment.dart';
 
 import 'screens/loading_screen.dart';
 
-void main() async {
-  await dotenv.load(fileName: '.env');
+Future<void> main() async {
+  await dotenv.load(fileName: Environment.fileName);
   return runApp(const MyApp());
 }
 

@@ -5,8 +5,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:unsplash_client/unsplash_client.dart';
 
 class PhotosModel {
-  var apiKey = dotenv.env['UNSPLASH_KEY'];
-  var apiSecret = dotenv.env['UNSPLASH_SECRET'];
+  var apiKey = dotenv.env['UNSPLASH_KEY'] ?? 'Key not found';
+  var apiSecret = dotenv.env['UNSPLASH_SECRET'] ?? "Secret not found";
   late Map<String, String> _photoData = {};
 
   Future<Map<String, String>> getPhotos(List<String> args, String city) async {

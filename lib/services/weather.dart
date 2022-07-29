@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:weather_icons/weather_icons.dart';
+import 'package:whatsweatherdoing/models/environment.dart';
 import 'package:whatsweatherdoing/services/location.dart';
 import 'package:whatsweatherdoing/services/networking.dart';
 import 'package:whatsweatherdoing/utilities/constants.dart';
 
-var apiKey = dotenv.env['OPEN_WEATHER_API_KEY'];
+var apiKey = Environment.openWeatherApiKey;
 const baseUrl = 'https://api.openweathermap.org';
 const weatherRoute = 'data/2.5/weather';
 const units = 'metric';
