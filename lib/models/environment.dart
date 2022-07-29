@@ -7,7 +7,7 @@ class Environment {
       return '.env.production';
     }
 
-    return '.env.development';
+    return '.env';
   }
 
   static String get openWeatherApiKey {
