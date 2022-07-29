@@ -6,6 +6,8 @@ const kBrandGreen = 0xFF06D6A0;
 const kBrandYellow = 0xFFFFD166;
 const kBrandPink = 0xFFEF476F;
 
+const kWeatherIconSize = 112.0;
+
 const kTempNumber = TextStyle(
   fontFamily: 'Ubuntu',
   fontSize: 192.0,

@@ -107,7 +107,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
                 Expanded(
-                  flex: 8,
+                  flex: 5,
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     child: TextField(

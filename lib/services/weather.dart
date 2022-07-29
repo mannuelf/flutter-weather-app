@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:whatsweatherdoing/services/location.dart';
 import 'package:whatsweatherdoing/services/networking.dart';
 import 'package:weather_icons/weather_icons.dart';
+import 'package:whatsweatherdoing/utilities/constants.dart';
 
 var apiKey = dotenv.env['OPEN_WEATHER_API_KEY'];
 const baseUrl = 'https://api.openweathermap.org';
@@ -39,21 +40,21 @@ class WeatherModel {
 
   Icon getWeatherIcon(int condition) {
     if (condition < 300) {
-      return const Icon(WeatherIcons.thunderstorm, size: 132.0);
+      return const Icon(WeatherIcons.thunderstorm, size: kWeatherIconSize);
     } else if (condition < 500) {
-      return const Icon(WeatherIcons.rain_mix, size: 132.0);
+      return const Icon(WeatherIcons.rain_mix, size: kWeatherIconSize);
     } else if (condition < 600) {
-      return const Icon(WeatherIcons.rain, size: 132.0);
+      return const Icon(WeatherIcons.rain, size: kWeatherIconSize);
     } else if (condition < 700) {
-      return const Icon(WeatherIcons.snowflake_cold, size: 132.0);
+      return const Icon(WeatherIcons.snowflake_cold, size: kWeatherIconSize);
     } else if (condition < 800) {
-      return const Icon(WeatherIcons.day_haze, size: 132.0);
+      return const Icon(WeatherIcons.day_haze, size: kWeatherIconSize);
     } else if (condition == 800) {
-      return const Icon(WeatherIcons.day_sunny, size: 132.0);
+      return const Icon(WeatherIcons.day_sunny, size: kWeatherIconSize);
     } else if (condition <= 804) {
-      return const Icon(WeatherIcons.day_cloudy, size: 132.0);
+      return const Icon(WeatherIcons.day_cloudy, size: kWeatherIconSize);
     } else {
-      return const Icon(WeatherIcons.refresh, size: 132.0);
+      return const Icon(WeatherIcons.refresh, size: kWeatherIconSize);
     }
   }
 
