@@ -7,8 +7,9 @@ import 'package:whatsweatherdoing/services/networking.dart';
 import 'package:whatsweatherdoing/utilities/constants.dart';
 
 var apiKey = Environment.openWeatherApiKey;
-const baseUrl = 'https://api.openweathermap.org';
-const weatherRoute = 'data/2.5/weather';
+const baseUrl = 'https://whatsweatherdoing.com';
+const weatherPath = 'api/weather';
+const cityPath = 'api/weather-city';
 const units = 'metric';
 var url = '';
 
@@ -18,7 +19,7 @@ class WeatherModel {
     await location.getCurrentLocation();
 
     final query = 'lat=${location.latitude}&lon=${location.longitude}';
-    url = '$baseUrl/$weatherRoute?$query&units=$units&appid=$apiKey';
+    url = '$baseUrl/$weatherPath?$query';
 
     NetworkHelper networkHelper = NetworkHelper(url);
     var decodedData = await networkHelper.getData();
@@ -28,8 +29,7 @@ class WeatherModel {
   }
 
   Future<dynamic> getCityWeather(String city) async {
-    final query = 'q=$city';
-    url = '$baseUrl/$weatherRoute?$query&units=$units&appid=$apiKey';
+    url = '$baseUrl/$cityPath/?city=$city';
 
     NetworkHelper networkHelper = NetworkHelper(url);
     var decodedData = await networkHelper.getData();

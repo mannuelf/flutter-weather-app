@@ -22,4 +22,9 @@ class Environment {
   static String get unsplashSecretKey {
     return dotenv.env['UNSPLASH_SECRET'] ?? 'OPEN_WEATHER_API_KEY not found';
   }
+
+  static String get whatsWeatherDoingApiUrl {
+    return dotenv.env['WHATSWEATHERDOING_API_URL'] ??
+        'WHATSWEATHERDOING_API_URL not found';
+  }
 }
