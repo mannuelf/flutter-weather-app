@@ -1,26 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_icons/weather_icons.dart';
-import 'package:whatsweatherdoing/models/environment.dart';
 import 'package:whatsweatherdoing/services/location.dart';
 import 'package:whatsweatherdoing/services/networking.dart';
 import 'package:whatsweatherdoing/utilities/constants.dart';
 
-var apiKey = Environment.openWeatherApiKey;
 const baseUrl = 'https://whatsweatherdoing.com';
 const weatherPath = 'api/weather';
 const cityPath = 'api/weather-city';
-const units = 'metric';
 var url = '';
+double lat = 0.0;
+double lon = 0.0;
 
 class WeatherModel {
   Future<dynamic> getLocationWeather() async {
     Location location = Location();
     await location.getCurrentLocation();
 
-    final query = 'lat=${location.latitude}&lon=${location.longitude}';
-    url = '$baseUrl/$weatherPath?$query';
+    lat = location.latitude as double;
+    lon = location.longitude as double;
 
+    url = '$baseUrl/$weatherPath?lat=$lat&lon=$lon';
     NetworkHelper networkHelper = NetworkHelper(url);
     var decodedData = await networkHelper.getData();
     final weatherData = decodedData;
@@ -75,18 +75,6 @@ class WeatherModel {
       return 'Few clouds';
     } else {
       return 'Refresh';
-    }
-  }
-
-  String getMessage(int temp) {
-    if (temp > 25) {
-      return 'It\'s 🍦 time';
-    } else if (temp > 20) {
-      return 'Time for shorts and 👕';
-    } else if (temp < 10) {
-      return 'You\'ll need 🧣 and 🧤';
-    } else {
-      return 'Bring a 🧥 just in case';
     }
   }
 }

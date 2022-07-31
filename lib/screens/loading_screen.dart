@@ -33,10 +33,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getLocationData() async {
-    WeatherModel weatherModel = WeatherModel();
-    final weatherData = await weatherModel.getLocationWeather();
-
     PhotosModel photosModel = PhotosModel();
+    WeatherModel weatherModel = WeatherModel();
+
+    final weatherData = await weatherModel.getLocationWeather();
     String city = weatherData['name'];
     final photoData = await photosModel.getPhotos([], city);
 

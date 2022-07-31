@@ -72,7 +72,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
       double temp = weatherData['main']['temp'];
       temperature = temp.toInt();
-      weatherMessage = weather.getMessage(temperature);
       condition = weather.getWeatherConditionLabel(conditionNo);
 
       _photoData = photoData;
@@ -81,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
       artistUri = _photoData['artistUri'].toString() + utmSource + utmReferral;
       unsplashUri = 'https://unsplash.com${utmSource}${utmReferral}';
       imageUri = _photoData['imageUri'].toString();
-      if (imageUri != null) {
+      if (imageUri != '') {
         customImg = NetworkImage(imageUri, scale: 0.4);
       } else {
         customImg = NetworkImage(fallbackUri, scale: 0.4);
