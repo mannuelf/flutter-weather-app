@@ -1,8 +1,9 @@
 import 'dart:convert';
-import 'dart:io' show File;
+import 'dart:io' show File, Platform;
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:unsplash_client/unsplash_client.dart';
+import 'package:whatsweatherdoing/models/environment.dart';
 
 class PhotosModel {
   var apiKey = dotenv.env['UNSPLASH_KEY'] ?? 'Key not found';
@@ -61,16 +62,13 @@ class PhotosModel {
 /// (`UNSPLASH_ACCESS_KEY`, `UNSPLASH_SECRET_KEY`).
 /// Returns `null` if the variables do not exist.
 AppCredentials? loadAppCredentialsFromEnv() {
-  // final accessKey = Platform.environment['UNSPLASH_KEY'];
-  // final secretKey = Platform.environment['UNSPLASH_SECRET'];
-  // print('Platform.environment');
-  // print(Platform.environment);
-  // if (accessKey != null && secretKey != null) {
-  //
-  // }
-  return const AppCredentials(
-    accessKey: "e5DBsUn4hY6927nfe_PLW1bdZMEAFJ7zcCUxDQvYk3k",
-    secretKey: "t2njqSvpJGpIU6s0CpuEOFHmLUi7kO5rN8SrZw8oRv4",
+  return AppCredentials(
+    accessKey: Environment.unsplashApiKey != null
+        ? Environment.unsplashApiKey
+        : 'xxx-xxx',
+    secretKey: Environment.unsplashSecretKey != null
+        ? Environment.unsplashSecretKey
+        : 'xxx-xxx',
   );
 }
 

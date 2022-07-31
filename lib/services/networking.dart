@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' show Client, Response;
 
 class NetworkHelper {
-  final url;
+  final String url;
 
   NetworkHelper(this.url);
 
@@ -16,7 +16,7 @@ class NetworkHelper {
       var decodedData = jsonDecode(data);
       return decodedData;
     } else {
-      print(response.statusCode);
+      throw 'Data fetch error: ${response.statusCode}';
     }
   }
 }

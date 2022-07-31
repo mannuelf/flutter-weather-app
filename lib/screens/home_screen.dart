@@ -80,10 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
       artistUri = _photoData['artistUri'].toString() + utmSource + utmReferral;
       unsplashUri = 'https://unsplash.com${utmSource}${utmReferral}';
       imageUri = _photoData['imageUri'].toString();
-      if (imageUri != '') {
-        customImg = NetworkImage(imageUri, scale: 0.4);
+      if (imageUri != null || imageUri != '') {
+        customImg = NetworkImage(imageUri);
       } else {
-        customImg = NetworkImage(fallbackUri, scale: 0.4);
+        customImg = Image.asset(fallbackUri);
       }
     });
   }

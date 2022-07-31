@@ -15,8 +15,7 @@ class Location {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
-      Alert(message: 'Turn on location services to use this app, please.')
-          .show();
+      Alert(message: 'Please turn on location services.').show();
       return Future.error('Location services are disabled.');
     }
 
@@ -25,13 +24,13 @@ class Location {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
 
+      Alert(message: 'Please turn on location permissions').show();
+
       if (permission == LocationPermission.deniedForever) {
         return Future.error('Location Not Available');
       }
-    } else {
-      print('<<<❌ Error>>>');
-      // throw Exception('Error');
     }
+
     if (permission == LocationPermission.whileInUse) {
       try {
         Position position = await Geolocator.getCurrentPosition(
