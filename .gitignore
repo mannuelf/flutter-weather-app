@@ -1,4 +1,5 @@
 # Miscellaneous
+cert-keys/
 test-data/
 *.class
 *.log
