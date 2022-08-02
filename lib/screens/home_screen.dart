@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String imageUri = '';
   String weatherMessage = '';
   var customImg;
-  String utmSource = '?utm_source=whatsweatherdoing.com';
+  String utmSource = '?utm_source=https://www.whatsweatherdoing.com';
   String utmReferral = '&utm_medium=referral';
   String unsplashUri = '';
   Widget weatherIcon = const Icon(WeatherIcons.refresh, size: kWeatherIconSize);

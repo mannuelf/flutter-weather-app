@@ -5,7 +5,7 @@ import 'package:whatsweatherdoing/services/location.dart';
 import 'package:whatsweatherdoing/services/networking.dart';
 import 'package:whatsweatherdoing/utilities/constants.dart';
 
-const baseUrl = 'https://whatsweatherdoing.com';
+const baseUrl = 'https://www.whatsweatherdoing.com';
 const weatherPath = 'api/weather';
 const cityPath = 'api/weather-city';
 var url = '';

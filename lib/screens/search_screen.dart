@@ -19,7 +19,7 @@ class _SearchScreenState extends State<SearchScreen> {
   String imageUri = '';
   var city = '';
   var customImg;
-  String utmSource = '?utm_source=whatsweatherdoing.com';
+  String utmSource = '?utm_source=https://www.whatsweatherdoing.com';
   String utmReferral = '&utm_medium=referral';
   String unsplashUri = '';
 
