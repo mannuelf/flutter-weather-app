@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:alert/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsweatherdoing/services/photos.dart';
 import 'package:whatsweatherdoing/services/weather.dart';
@@ -203,9 +204,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             if (typedName != null) {
                               var weatherData =
                                   await weather.getCityWeather(typedName);
-                              var photoData = await photos
-                                  .getPhotos([], weatherData['name']);
-                              updateUI(weatherData, photoData);
+                              if (weatherData['name'] != null) {
+                                var photoData = await photos
+                                    .getPhotos([], weatherData['name']);
+                                updateUI(weatherData, photoData);
+                              }
                             }
                           },
                           child: const Icon(Icons.search_rounded, size: 36),

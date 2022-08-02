@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io' show File, Platform;
+import 'dart:io' show File;
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:unsplash_client/unsplash_client.dart';
@@ -8,7 +8,7 @@ import 'package:whatsweatherdoing/models/environment.dart';
 class PhotosModel {
   var apiKey = dotenv.env['UNSPLASH_KEY'] ?? 'Key not found';
   var apiSecret = dotenv.env['UNSPLASH_SECRET'] ?? "Secret not found";
-  late Map<String, String> _photoData = {};
+  final Map<String, String> _photoData = {};
 
   Future<Map<String, String>> getPhotos(List<String> args, String city) async {
     // Load app credentials from environment variables or file.
@@ -63,12 +63,8 @@ class PhotosModel {
 /// Returns `null` if the variables do not exist.
 AppCredentials? loadAppCredentialsFromEnv() {
   return AppCredentials(
-    accessKey: Environment.unsplashApiKey != null
-        ? Environment.unsplashApiKey
-        : 'xxx-xxx',
-    secretKey: Environment.unsplashSecretKey != null
-        ? Environment.unsplashSecretKey
-        : 'xxx-xxx',
+    accessKey: Environment.unsplashApiKey,
+    secretKey: Environment.unsplashSecretKey,
   );
 }
 

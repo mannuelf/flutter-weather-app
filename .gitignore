@@ -1,4 +1,5 @@
 # Miscellaneous
+upload-keystore.jks
 cert-keys/
 test-data/
 *.class
