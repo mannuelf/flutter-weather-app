@@ -1,0 +1,43 @@
+{
+  "coord": {
+    "lon": 31.5,
+    "lat": -26.5
+  },
+  "weather": [
+    {
+      "id": 801,
+      "main": "Clouds",
+      "description": "few clouds",
+      "icon": "02d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 17.58,
+    "feels_like": 16.49,
+    "temp_min": 17.58,
+    "temp_max": 17.63,
+    "pressure": 1032,
+    "humidity": 42
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 2.57,
+    "deg": 120
+  },
+  "clouds": {
+    "all": 20
+  },
+  "dt": 1661074721,
+  "sys": {
+    "type": 1,
+    "id": 2026,
+    "country": "SZ",
+    "sunrise": 1661055495,
+    "sunset": 1661096192
+  },
+  "timezone": 7200,
+  "id": 934841,
+  "name": "Eswatini",
+  "cod": 200
+}
