@@ -1,14 +1,9 @@
-
 class Console {
-  late final String _title;
-  late final dynamic _arg;
-
-  String log(String title, dynamic arg) {
-    _title = title;
-    _arg = arg;
-    print(_title);
-    print(_arg);
+  // using static method so i do not have to instantiate a Console object.
+  static String log(String title, dynamic arg) {
+    print(title);
+    print(arg);
     print('=================================================================\n');
-    return "$_title - $arg";
+    return "$title - $arg";
   }
 }

@@ -1,6 +1,5 @@
 import 'dart:core';
 
-import 'package:alert/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsweatherdoing/services/photos.dart';
 import 'package:whatsweatherdoing/services/weather.dart';
